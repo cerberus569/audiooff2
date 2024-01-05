@@ -11,9 +11,12 @@ import android.content.IntentFilter
 import android.media.AudioManager
 import android.speech.RecognitionListener
 import android.speech.SpeechRecognizer
+import android.telephony.TelephonyManager
+import android.widget.Button
 import android.widget.Toast
 import com.example.audiooff2.R
 import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.EditText
 
 class MainActivity : AppCompatActivity() {
 
@@ -80,7 +83,10 @@ class MainActivity : AppCompatActivity() {
                 // Mostrar el mensaje si coincide.
                 val state = intent?.getStringExtra(TelephonyManager.EXTRA_STATE)
                 if (state == TelephonyManager.EXTRA_STATE_RINGING) {
-                    val incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+                    val incomingNumber = intent?.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+                    val editText = findViewById<EditText>(R.id.editText)
+
+
                     val name = editText.text.toString()
                     if (incomingNumber == name) {
                         Toast.makeText(this@MainActivity, "Llamada entrante de $name", Toast.LENGTH_SHORT).show()
@@ -92,6 +98,19 @@ class MainActivity : AppCompatActivity() {
         val intentFilter = IntentFilter()
         intentFilter.addAction("android.intent.action.PHONE_STATE")
         registerReceiver(callReceiver, intentFilter)
-    }
 
-    override fun onRequestPermissionsResult
+
+        override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<String>,
+            grantResults: IntArray
+        ) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+            // Manejar la respuesta de permisos aquí.
+        }
+
+        override fun onDestroy() {
+            super.onDestroy()
+            // Liberar recursos y detener el reconocimiento de voz.
+        }
+    }
