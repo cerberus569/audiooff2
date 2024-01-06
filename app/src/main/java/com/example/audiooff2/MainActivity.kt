@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
 
+
         val recognitionListener = object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
                 // Implement speech recognition callbacks here.
@@ -83,13 +84,18 @@ class MainActivity : AppCompatActivity() {
                 // Mostrar el mensaje si coincide.
                 val state = intent?.getStringExtra(TelephonyManager.EXTRA_STATE)
                 if (state == TelephonyManager.EXTRA_STATE_RINGING) {
-                    val incomingNumber = intent?.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+                    val incomingNumber =
+                        intent?.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
                     val editText = findViewById<EditText>(R.id.editText)
 
 
                     val name = editText.text.toString()
                     if (incomingNumber == name) {
-                        Toast.makeText(this@MainActivity, "Llamada entrante de $name", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Llamada entrante de $name",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -114,3 +120,5 @@ class MainActivity : AppCompatActivity() {
             // Liberar recursos y detener el reconocimiento de voz.
         }
     }
+
+}
