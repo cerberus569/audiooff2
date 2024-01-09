@@ -73,6 +73,8 @@ class MainActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
             // Guardar el nombre en la caja de texto.
+            val editText = findViewById<EditText>(R.id.editText)
+
             val name = editText.text.toString()
             Toast.makeText(this, "Nombre guardado: $name", Toast.LENGTH_SHORT).show()
         }
@@ -83,13 +85,18 @@ class MainActivity : AppCompatActivity() {
                 // Mostrar el mensaje si coincide.
                 val state = intent?.getStringExtra(TelephonyManager.EXTRA_STATE)
                 if (state == TelephonyManager.EXTRA_STATE_RINGING) {
-                    val incomingNumber = intent?.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+                    val incomingNumber =
+                        intent?.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
                     val editText = findViewById<EditText>(R.id.editText)
 
 
                     val name = editText.text.toString()
                     if (incomingNumber == name) {
-                        Toast.makeText(this@MainActivity, "Llamada entrante de $name", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Llamada entrante de $name",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -114,3 +121,4 @@ class MainActivity : AppCompatActivity() {
             // Liberar recursos y detener el reconocimiento de voz.
         }
     }
+}
