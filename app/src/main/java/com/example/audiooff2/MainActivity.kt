@@ -15,7 +15,7 @@ import android.telephony.TelephonyManager
 import android.widget.Button
 import android.widget.Toast
 import com.example.audiooff2.R
-import kotlinx.android.synthetic.main.activity_main.*
+
 import android.widget.EditText
 
 class MainActivity : AppCompatActivity() {
@@ -107,6 +107,8 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(callReceiver, intentFilter)
 
 
+    }
+
         override fun onRequestPermissionsResult(
             requestCode: Int,
             permissions: Array<String>,
@@ -120,5 +122,5 @@ class MainActivity : AppCompatActivity() {
             super.onDestroy()
             // Liberar recursos y detener el reconocimiento de voz.
         }
-    }
+
 }
