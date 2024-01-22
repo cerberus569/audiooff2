@@ -106,6 +106,12 @@ class MainActivity : AppCompatActivity() {
         intentFilter.addAction("android.intent.action.PHONE_STATE")
         registerReceiver(callReceiver, intentFilter)
 
+        val button2 = findViewById<Button>(R.id.button2)
+        button2.setOnClickListener {
+            // Cerrar la aplicación cuando se presiona el botón button2.
+            finish()
+        }
+
 
     }
 
