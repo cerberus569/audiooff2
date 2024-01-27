@@ -1,22 +1,18 @@
 package com.example.audiooff2
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-
-import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.media.AudioManager
+import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.SpeechRecognizer
 import android.telephony.TelephonyManager
 import android.widget.Button
-import android.widget.Toast
-import com.example.audiooff2.R
-
 import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -92,9 +88,10 @@ class MainActivity : AppCompatActivity() {
 
                     val name = editText.text.toString()
                     if (incomingNumber == name) {
+                        audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true)
                         Toast.makeText(
-                            this@MainActivity,
-                            "Llamada entrante de $name",
+                            context,
+                            "Llamada entrante de $name. ¡Audio apagado!",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
