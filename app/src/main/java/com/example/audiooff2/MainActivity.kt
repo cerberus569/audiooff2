@@ -88,7 +88,8 @@ class MainActivity : AppCompatActivity() {
 
                     val name = editText.text.toString()
                     if (incomingNumber == name) {
-                        audioManager.setStreamMute(AudioManager.STREAM_MUSIC, true)
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
+
                         Toast.makeText(
                             context,
                             "Llamada entrante de $name. ¡Audio apagado!",
