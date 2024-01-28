@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.SpeechRecognizer
 import android.telephony.TelephonyManager
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -77,17 +78,24 @@ class MainActivity : AppCompatActivity() {
 
         val callReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
+                Log.d("CallReceiver", "Received broadcast")
                 // Detectar llamadas entrantes y comparar con el nombre guardado.
                 // Mostrar el mensaje si coincide.
                 val state = intent?.getStringExtra(TelephonyManager.EXTRA_STATE)
                 if (state == TelephonyManager.EXTRA_STATE_RINGING) {
                     val incomingNumber =
                         intent?.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
+                    Log.d("CallReceiver", "Incoming number: $incomingNumber")
                     val editText = findViewById<EditText>(R.id.editText)
 
 
                     val name = editText.text.toString()
-                    if (incomingNumber == name) {
+                    if (incomingNumber == null) {
+                        Log.d("CallReceiver", "Incoming number is null")
+                        return
+                    }
+
+                    if (incomingNumber?.equals(name, ignoreCase = true) == true) {
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
 
                         Toast.makeText(
